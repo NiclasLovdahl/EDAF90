@@ -65,16 +65,16 @@ class Salad {
     remove(type, selection) {
         switch (type) {
             case "foundation":
-                this.foundation.splice(foundation.indexOf(selection, 1));
+                this.foundation.splice(this.foundation.indexOf(selection, 1));
                 break;
             case "proteins":
-                this.proteins.splice(proteins.indexOf(selection, 1));
+                this.proteins.splice(this.proteins.indexOf(selection, 1));
                 break;
             case "extras":
-                this.extras.splice(extras.indexOf(selection, 1));
+                this.extras.splice(this.extras.indexOf(selection, 1));
                 break;
             case "dressing":
-                this.dressing.splice(dressing.indexOf(selection, 1));
+                this.dressing.splice(this.dressing.indexOf(selection, 1));
                 break;
             default:
                 console.error("Type not found.");
@@ -122,6 +122,8 @@ myExtraGreenSalad.add("proteins", "Handskalade räkor från Smögen");
 myExtraGreenSalad.add("extras", "Krossade jordnötter");
 myExtraGreenSalad.add("extras", "Parmesan");
 myExtraGreenSalad.add("dressing", "Kimchimayo");
+myExtraGreenSalad.remove("extras", "Parmesan");
+console.log(myExtraGreenSalad);
 console.log(myExtraGreenSalad.price());
 
 /* 
