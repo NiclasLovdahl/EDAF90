@@ -98,3 +98,50 @@ mySalad.add("extras", "Krossade jordnötter");
 mySalad.add("extras", "Parmesan");
 mySalad.add("dressing", "Kimchimayo");
 console.log(mySalad.price());
+
+class ExtraGreenSalad extends Salad {
+    price() {
+        return this.foundation
+            .concat(this.proteins, this.extras, this.dressing)
+            .reduce((acc, curr) => {
+                if ("foundation" in imported.inventory[curr]) {
+                    return (acc += imported.inventory[curr].price * 1.3);
+                } else if ("extra" in imported.inventory[curr]) {
+                    return (acc += imported.inventory[curr].price * 0.5);
+                } else {
+                    return (acc += imported.inventory[curr].price);
+                }
+            }, 0);
+    }
+}
+
+let myExtraGreenSalad = new ExtraGreenSalad();
+
+myExtraGreenSalad.add("foundation", "Salad + Glasnudlar");
+myExtraGreenSalad.add("proteins", "Handskalade räkor från Smögen");
+myExtraGreenSalad.add("extras", "Krossade jordnötter");
+myExtraGreenSalad.add("extras", "Parmesan");
+myExtraGreenSalad.add("dressing", "Kimchimayo");
+console.log(myExtraGreenSalad.price());
+
+console.log(myExtraGreenSalad);
+
+/* 
+                Prototype chain of ExtraGreenSalad
+
+    Object ------------------------------------------------------
+    |                                                           |
+    |                                                           |
+    V                                                           |
+    Salad -----------------------------------                   |
+    |                                       |                   |
+    |                                       |                   |
+    V                                       |                   |
+    ExtraGreenSalad ----->  price           |                   |
+                            __proto__ ------->  add             |
+                                                remove          |
+                                                price           |
+                                                __proto__ ------->  toString etc...
+                                                                    __proto__     
+
+*/
