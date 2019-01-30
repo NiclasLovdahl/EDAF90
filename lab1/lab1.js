@@ -124,8 +124,6 @@ myExtraGreenSalad.add("extras", "Parmesan");
 myExtraGreenSalad.add("dressing", "Kimchimayo");
 console.log(myExtraGreenSalad.price());
 
-console.log(myExtraGreenSalad);
-
 /* 
                 Prototype chain of ExtraGreenSalad
 
@@ -142,6 +140,82 @@ console.log(myExtraGreenSalad);
                                                 remove          |
                                                 price           |
                                                 __proto__ ------->  toString etc...
-                                                                    __proto__     
+                                                                    __proto__: null  
 
 */
+
+class GourmetSalad extends Salad {
+    add(type, selection, size = 1) {
+        switch (type) {
+            case "foundation":
+                this.foundation.push({ selection: selection, size: size });
+                break;
+            case "proteins":
+                this.proteins.push({ selection: selection, size: size });
+                break;
+            case "extras":
+                this.extras.push({ selection: selection, size: size });
+                break;
+            case "dressing":
+                this.dressing.push({ selection: selection, size: size });
+                break;
+            default:
+                console.error("Type not found.");
+                break;
+        }
+    }
+
+    remove(type, selection) {
+        switch (type) {
+            case "foundation":
+                this.foundation.splice(
+                    this.foundation.findIndex(
+                        obj => obj.selection === selection
+                    ),
+                    1
+                );
+                break;
+            case "proteins":
+                this.proteins.splice(
+                    this.proteins.findIndex(obj => obj.selection === selection),
+                    1
+                );
+                break;
+            case "extras":
+                this.extras.splice(
+                    this.extras.findIndex(obj => obj.selection === selection),
+                    1
+                );
+                break;
+            case "dressing":
+                this.dressing.splice(
+                    this.dressing.findIndex(obj => obj.selection === selection),
+                    1
+                );
+                break;
+            default:
+                console.error("Type not found.");
+                break;
+        }
+    }
+
+    price() {
+        return this.foundation
+            .concat(this.proteins, this.extras, this.dressing)
+            .reduce((acc, curr) => {
+                return (
+                    acc + imported.inventory[curr.selection].price * curr.size
+                );
+            }, 0);
+    }
+}
+
+let myGourmetSalad = new GourmetSalad();
+
+myGourmetSalad.add("foundation", "Salad + Glasnudlar", 2.5);
+myGourmetSalad.add("proteins", "Handskalade räkor från Smögen");
+myGourmetSalad.add("extras", "Krossade jordnötter");
+myGourmetSalad.add("extras", "Parmesan");
+myGourmetSalad.add("dressing", "Kimchimayo");
+myGourmetSalad.remove("extras", "Parmesan");
+console.log(myGourmetSalad.price());
