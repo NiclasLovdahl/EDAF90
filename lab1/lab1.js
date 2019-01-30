@@ -107,10 +107,8 @@ class ExtraGreenSalad extends Salad {
             .reduce((acc, curr) => {
                 if ("foundation" in imported.inventory[curr]) {
                     return (acc += imported.inventory[curr].price * 1.3);
-                } else if ("extra" in imported.inventory[curr]) {
-                    return (acc += imported.inventory[curr].price * 0.5);
                 } else {
-                    return (acc += imported.inventory[curr].price);
+                    return (acc += imported.inventory[curr].price * 0.5);
                 }
             }, 0);
     }
