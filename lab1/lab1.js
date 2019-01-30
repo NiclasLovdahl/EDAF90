@@ -97,6 +97,7 @@ mySalad.add("proteins", "Handskalade räkor från Smögen");
 mySalad.add("extras", "Krossade jordnötter");
 mySalad.add("extras", "Parmesan");
 mySalad.add("dressing", "Kimchimayo");
+console.log(mySalad);
 console.log(mySalad.price());
 
 class ExtraGreenSalad extends Salad {
@@ -220,4 +221,5 @@ myGourmetSalad.add("extras", "Krossade jordnötter");
 myGourmetSalad.add("extras", "Parmesan");
 myGourmetSalad.add("dressing", "Kimchimayo");
 myGourmetSalad.remove("extras", "Parmesan");
+console.log(myGourmetSalad);
 console.log(myGourmetSalad.price());
