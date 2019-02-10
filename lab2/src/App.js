@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
@@ -9,6 +9,8 @@ import inventory from "./lib/inventory.ES6";
 // import ComposeSaladModal from "./components/ComposeSaladModal";
 import ComposeSalad from "./components/ComposeSalad";
 import ViewOrder from "./components/ViewOrder";
+
+const NotFound = () => <h1>Page Not Found</h1>;
 
 class App extends Component {
     constructor() {
@@ -58,11 +60,15 @@ class App extends Component {
                         </li>
                     </ul>
 
-                    <Route
-                        path="/compose-salad"
-                        render={this.composeSaladElem}
-                    />
-                    <Route path="/view-order" render={this.viewOrderElem} />
+                    <Switch>
+                        <Route path="/" exact render={null} />
+                        <Route
+                            path="/compose-salad"
+                            render={this.composeSaladElem}
+                        />
+                        <Route path="/view-order" render={this.viewOrderElem} />
+                        <Route component={NotFound} />
+                    </Switch>
                 </div>
             </>
         );
