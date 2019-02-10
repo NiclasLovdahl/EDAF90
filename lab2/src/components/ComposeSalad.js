@@ -8,10 +8,10 @@ class ComposeSalad extends Component {
         super();
 
         this.state = {
-            foundation: "Sallad",
+            foundation: "",
             proteins: [],
             extras: [],
-            dressing: "Ceasardressing"
+            dressing: ""
         };
 
         const inventory = props.inventory;
@@ -38,6 +38,7 @@ class ComposeSalad extends Component {
     handleSelectChange = event => {
         const name = event.target.getAttribute("name");
         const value = event.target.value;
+        event.target.parentElement.classList.add("was-validated");
 
         if (name === "foundation") {
             this.setState({ foundation: value });
@@ -74,22 +75,26 @@ class ComposeSalad extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const salad = this.state;
-        this.props.addSalad(salad);
+        event.target.classList.add("was-validated");
 
-        this.setState({
-            foundation: "Sallad",
-            proteins: [],
-            extras: [],
-            dressing: "Ceasardressing"
-        });
+        if (event.target.checkValidity() === true) {
+            const salad = this.state;
+            this.props.addSalad(salad);
 
-        this.props.history.push("/view-order");
+            this.setState({
+                foundation: "",
+                proteins: [],
+                extras: [],
+                dressing: ""
+            });
+
+            this.props.history.push("/view-order");
+        }
     };
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} noValidate>
                 <h4>Välj bas:</h4>
                 <SaladSelect
                     type="foundation"

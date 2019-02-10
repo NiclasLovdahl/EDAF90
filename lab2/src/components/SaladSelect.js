@@ -9,13 +9,16 @@ class SaladSelect extends Component {
                     value={this.props.init}
                     name={this.props.type}
                     onChange={this.props.handleChange}
+                    required
                 >
+                    <option value="">Gör ett val...</option>
                     {this.props.items.map(name => (
                         <option key={name} value={name}>
                             {name}
                         </option>
                     ))}
                 </select>
+                <div className="invalid-feedback">Du måste välja en vara.</div>
             </div>
         );
     }
