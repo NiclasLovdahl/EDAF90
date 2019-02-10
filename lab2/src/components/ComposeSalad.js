@@ -49,6 +49,7 @@ class ComposeSalad extends Component {
     handleCheckboxChange = event => {
         const name = event.target.getAttribute("name");
         const value = event.target.value;
+        let index;
 
         if (name === "protein") {
             if (event.target.checked) {
@@ -56,7 +57,7 @@ class ComposeSalad extends Component {
                     proteins: [...this.state.proteins, value]
                 });
             } else {
-                var index = this.state.proteins.indexOf(value);
+                index = this.state.proteins.indexOf(value);
                 this.setState(this.state.proteins.splice(index, 1));
             }
         } else if (name === "extra") {
@@ -65,7 +66,7 @@ class ComposeSalad extends Component {
                     extras: [...this.state.extras, value]
                 });
             } else {
-                var index = this.state.extras.indexOf(value);
+                index = this.state.extras.indexOf(value);
                 this.setState(this.state.extras.splice(index, 1));
             }
         }
@@ -82,6 +83,8 @@ class ComposeSalad extends Component {
             extras: [],
             dressing: "Ceasardressing"
         });
+
+        this.props.history.push("/view-order");
     };
 
     render() {
