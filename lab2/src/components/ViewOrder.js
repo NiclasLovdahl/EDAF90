@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SaladSelect from "./SaladSelect";
 
 class ViewOrder extends Component {
     render() {
