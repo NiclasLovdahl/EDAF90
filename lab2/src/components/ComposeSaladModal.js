@@ -43,6 +43,7 @@ class ComposeSaladModal extends Component {
                             <div className="modal-body">
                                 <ComposeSalad
                                     inventory={this.props.inventory}
+                                    addSalad={this.props.addSalad}
                                 />
                             </div>
                             <div className="modal-footer">

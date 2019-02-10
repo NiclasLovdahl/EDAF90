@@ -71,9 +71,22 @@ class ComposeSalad extends Component {
         }
     };
 
+    handleSubmit = event => {
+        event.preventDefault();
+        const salad = this.state;
+        this.props.addSalad(salad);
+
+        this.setState({
+            foundation: "Sallad",
+            proteins: [],
+            extras: [],
+            dressing: "Ceasardressing"
+        });
+    };
+
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <h4>Välj bas:</h4>
                 <SaladSelect
                     type="foundation"
@@ -105,6 +118,10 @@ class ComposeSalad extends Component {
                     init={this.state.dressing}
                     handleChange={this.handleSelectChange}
                 />
+
+                <button type="submit" className="btn btn-primary">
+                    Lägg till salad
+                </button>
             </form>
         );
     }

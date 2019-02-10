@@ -13,7 +13,15 @@ class App extends Component {
         this.state = {
             salads: []
         };
+
+        this.addSalad = this.addSalad.bind(this);
     }
+
+    addSalad = obj => {
+        this.setState({
+            salads: [...this.state.salads, obj]
+        });
+    };
 
     render() {
         return (
@@ -23,7 +31,10 @@ class App extends Component {
                     <p className="lead">Lab 2</p>
                 </div>
 
-                <ComposeSaladModal inventory={inventory} />
+                <ComposeSaladModal
+                    inventory={inventory}
+                    addSalad={this.addSalad}
+                />
             </>
         );
     }
