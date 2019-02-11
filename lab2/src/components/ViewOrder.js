@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import "./ViewOrder.css";
+
 class ViewOrder extends Component {
     render() {
         return (
@@ -14,6 +16,7 @@ class ViewOrder extends Component {
                             salad.proteins +
                             salad.extras +
                             salad.dressing}
+                        <span className="price">{salad.price + " :-"}</span>
                     </li>
                 ))}
             </ul>
