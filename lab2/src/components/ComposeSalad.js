@@ -5,7 +5,7 @@ import SaladSelect from "./SaladSelect";
 
 class ComposeSalad extends Component {
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             foundation: "",
