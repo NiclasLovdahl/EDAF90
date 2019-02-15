@@ -13,24 +13,21 @@ import ViewOrder from "./components/ViewOrder";
 const NotFound = () => <h1>Page Not Found</h1>;
 
 class App extends Component {
-    constructor() {
-        super();
+    state = {
+        salads: []
+    };
 
-        this.state = {
-            salads: []
-        };
+    composeSaladElem = params => (
+        <ComposeSalad
+            {...params}
+            inventory={inventory}
+            addSalad={this.addSalad}
+        />
+    );
 
-        this.composeSaladElem = params => (
-            <ComposeSalad
-                {...params}
-                inventory={inventory}
-                addSalad={this.addSalad}
-            />
-        );
-        this.viewOrderElem = params => (
-            <ViewOrder {...params} order={this.state.salads} />
-        );
-    }
+    viewOrderElem = params => (
+        <ViewOrder {...params} order={this.state.salads} />
+    );
 
     addSalad = obj => {
         obj.id = shortid.generate();
