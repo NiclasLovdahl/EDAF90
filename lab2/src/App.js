@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import shortid from "shortid";
 
-import inventory from "./lib/inventory.ES6";
 // import ComposeSaladModal from "./components/ComposeSaladModal";
 import ComposeSalad from "./components/ComposeSalad";
 import ViewOrder from "./components/ViewOrder";
@@ -14,13 +13,14 @@ const NotFound = () => <h1>Page Not Found</h1>;
 
 class App extends Component {
     state = {
-        salads: []
+        salads: [],
+        inventory: {}
     };
 
     composeSaladElem = params => (
         <ComposeSalad
             {...params}
-            inventory={inventory}
+            inventory={this.state.inventory}
             addSalad={this.addSalad}
         />
     );
@@ -41,13 +41,43 @@ class App extends Component {
 
     calculatePrice = obj => {
         const price =
-            inventory[obj.foundation].price +
-            inventory[obj.dressing].price +
+            this.state.inventory[obj.foundation].price +
+            this.state.inventory[obj.dressing].price +
             obj.proteins.concat(obj.extras).reduce((pre, curr) => {
-                return pre + inventory[curr].price;
+                return pre + this.state.inventory[curr].price;
             }, 0);
         return price;
     };
+
+    componentDidMount() {
+        let inventory = {};
+        fetch("http://localhost:8080/foundations", {
+            method: "GET",
+            headers: new Headers(),
+            mode: "cors",
+            cache: "default"
+        })
+            .then(res => res.json())
+            .then(res => {
+                res.forEach(key => {
+                    const url = new URL(
+                        key,
+                        "http://localhost:8080/foundations/"
+                    );
+                    fetch(url, {
+                        method: "GET",
+                        headers: new Headers(),
+                        mode: "cors",
+                        cache: "default"
+                    })
+                        .then(res => res.json())
+                        .then(res => {
+                            inventory = { ...inventory, [key]: res };
+                            console.log(inventory);
+                        });
+                }, {});
+            });
+    }
 
     render() {
         return (
