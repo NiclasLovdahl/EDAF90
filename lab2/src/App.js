@@ -5,14 +5,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import shortid from "shortid";
 
-import inventory from "./lib/inventory.ES6";
 // import ComposeSaladModal from "./components/ComposeSaladModal";
 import ComposeSalad from "./components/ComposeSalad";
 import ViewOrder from "./components/ViewOrder";
 
 const NotFound = () => <h1>Page Not Found</h1>;
-
-console.log("orginal", inventory);
 
 class App extends Component {
     state = {
@@ -35,7 +32,6 @@ class App extends Component {
     addSalad = obj => {
         obj.id = shortid.generate();
         obj.price = this.calculatePrice(obj);
-        console.log(obj);
 
         this.setState({
             salads: [...this.state.salads, obj]
@@ -54,35 +50,41 @@ class App extends Component {
 
     componentDidMount() {
         let inventory = {};
-        fetch("http://localhost:8080/foundations", {
-            method: "GET",
-            headers: new Headers(),
-            mode: "cors",
-            cache: "default"
-        })
-            .then(res => res.json())
-            .then(res => {
-                Promise.all(
-                    res.map(key => {
-                        const url = new URL(
-                            key,
-                            "http://localhost:8080/foundations/"
-                        );
-                        return fetch(url, {
-                            method: "GET",
-                            headers: new Headers(),
-                            mode: "cors",
-                            cache: "default"
-                        })
-                            .then(res => res.json())
-                            .then(res => {
-                                inventory = { ...inventory, [key]: res };
-                            });
-                    })
-                ).then(() => {
-                    this.setState({ inventory: inventory });
-                });
-            });
+        const urls = ["foundations", "proteins", "extras", "dressings"];
+        Promise.all(
+            urls.map(data => {
+                const url = new URL(data, "http://localhost:8080/");
+                return fetch(url, {
+                    method: "GET",
+                    headers: new Headers(),
+                    mode: "cors",
+                    cache: "default"
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        Promise.all(
+                            res.map(key => {
+                                const url2 = new URL(key, url.toString() + "/");
+                                return fetch(url2, {
+                                    method: "GET",
+                                    headers: new Headers(),
+                                    mode: "cors",
+                                    cache: "default"
+                                })
+                                    .then(res => res.json())
+                                    .then(res => {
+                                        inventory = {
+                                            ...inventory,
+                                            [key]: res
+                                        };
+                                    });
+                            })
+                        ).then(() => {
+                            this.setState({ inventory: inventory });
+                        });
+                    });
+            })
+        );
     }
 
     render() {
