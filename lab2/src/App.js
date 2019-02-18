@@ -5,11 +5,14 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import shortid from "shortid";
 
+import inventory from "./lib/inventory.ES6";
 // import ComposeSaladModal from "./components/ComposeSaladModal";
 import ComposeSalad from "./components/ComposeSalad";
 import ViewOrder from "./components/ViewOrder";
 
 const NotFound = () => <h1>Page Not Found</h1>;
+
+console.log("orginal", inventory);
 
 class App extends Component {
     state = {
@@ -77,7 +80,7 @@ class App extends Component {
                             });
                     })
                 ).then(() => {
-                    console.log(inventory);
+                    this.setState({ inventory: inventory });
                 });
             });
     }

@@ -13,26 +13,6 @@ class ComposeSalad extends Component {
             extras: [],
             dressing: ""
         };
-
-        const inventory = props.inventory;
-
-        // test for correct ussage, the parent must send this datastructure
-        if (!inventory) {
-            alert("inventory is undefined in ComposeSalad");
-        }
-
-        this.foundations = Object.keys(inventory).filter(
-            name => inventory[name].foundation
-        );
-        this.proteins = Object.keys(inventory).filter(
-            name => inventory[name].protein
-        );
-        this.extras = Object.keys(inventory).filter(
-            name => inventory[name].extra
-        );
-        this.dressings = Object.keys(inventory).filter(
-            name => inventory[name].dressing
-        );
     }
 
     handleSelectChange = event => {
@@ -93,6 +73,23 @@ class ComposeSalad extends Component {
     };
 
     render() {
+        this.inventory = this.props.inventory;
+
+        this.foundations = Object.keys(this.inventory).filter(
+            name => this.inventory[name].foundation
+        );
+        console.log("test2", this.foundations);
+
+        this.proteins = Object.keys(this.inventory).filter(
+            name => this.inventory[name].protein
+        );
+        this.extras = Object.keys(this.inventory).filter(
+            name => this.inventory[name].extra
+        );
+        this.dressings = Object.keys(this.inventory).filter(
+            name => this.inventory[name].dressing
+        );
+
         return (
             <form onSubmit={this.handleSubmit} noValidate>
                 <h4>Välj bas:</h4>
