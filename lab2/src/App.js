@@ -59,23 +59,26 @@ class App extends Component {
         })
             .then(res => res.json())
             .then(res => {
-                res.forEach(key => {
-                    const url = new URL(
-                        key,
-                        "http://localhost:8080/foundations/"
-                    );
-                    fetch(url, {
-                        method: "GET",
-                        headers: new Headers(),
-                        mode: "cors",
-                        cache: "default"
+                Promise.all(
+                    res.map(key => {
+                        const url = new URL(
+                            key,
+                            "http://localhost:8080/foundations/"
+                        );
+                        return fetch(url, {
+                            method: "GET",
+                            headers: new Headers(),
+                            mode: "cors",
+                            cache: "default"
+                        })
+                            .then(res => res.json())
+                            .then(res => {
+                                inventory = { ...inventory, [key]: res };
+                            });
                     })
-                        .then(res => res.json())
-                        .then(res => {
-                            inventory = { ...inventory, [key]: res };
-                            console.log(inventory);
-                        });
-                }, {});
+                ).then(() => {
+                    console.log(inventory);
+                });
             });
     }
 
