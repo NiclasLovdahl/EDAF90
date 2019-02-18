@@ -78,8 +78,6 @@ class ComposeSalad extends Component {
         this.foundations = Object.keys(this.inventory).filter(
             name => this.inventory[name].foundation
         );
-        console.log("test2", this.foundations);
-
         this.proteins = Object.keys(this.inventory).filter(
             name => this.inventory[name].protein
         );
