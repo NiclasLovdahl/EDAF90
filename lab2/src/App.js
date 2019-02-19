@@ -33,8 +33,9 @@ class App extends Component {
         obj.id = shortid.generate();
         obj.price = this.calculatePrice(obj);
 
+        const salad = [...this.state.salads, obj];
         this.setState({
-            salads: [...this.state.salads, obj]
+            salads: salad
         });
     };
 
