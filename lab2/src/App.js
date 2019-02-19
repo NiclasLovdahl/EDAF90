@@ -34,6 +34,7 @@ class App extends Component {
         obj.price = this.calculatePrice(obj);
 
         const salad = [...this.state.salads, obj];
+        localStorage.setItem("salads", JSON.stringify(salad));
         this.setState({
             salads: salad
         });
@@ -50,6 +51,8 @@ class App extends Component {
     };
 
     componentDidMount() {
+        this.setState({ salads: JSON.parse(localStorage.getItem("salads")) });
+
         let inventory = {};
         const urls = ["foundations", "proteins", "extras", "dressings"];
         Promise.all(
