@@ -29,7 +29,8 @@ class App extends Component {
         <ViewOrder
             {...params}
             order={this.state.salads}
-            handleClick={this.clearOrders}
+            handleClickClear={this.clearOrders}
+            handleClickOrder={this.placeOrder}
         />
     );
 
@@ -57,6 +58,21 @@ class App extends Component {
     clearOrders = () => {
         this.setState({ salads: [] });
         localStorage.setItem("salads", JSON.stringify([]));
+    };
+
+    placeOrder = () => {
+        fetch("http://localhost:8080/orders/", {
+            method: "POST",
+            headers: new Headers(),
+            mode: "cors",
+            cache: "default",
+            body: JSON.stringify(this.state.salads)
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                this.clearOrders();
+            });
     };
 
     componentDidMount() {
