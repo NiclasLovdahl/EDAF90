@@ -22,13 +22,21 @@ class ViewOrder extends Component {
                     ))}
                 </ul>
                 {this.props.order.length > 0 ? (
-                    <button
-                        type="button"
-                        className="btn btn-primary clear"
-                        onClick={this.props.handleClick}
-                    >
-                        Rensa
-                    </button>
+                    <>
+                        <button
+                            type="button"
+                            className="btn btn-danger clear"
+                            onClick={this.props.handleClickClear}
+                        >
+                            Rensa
+                        </button>
+                        <button
+                            className="btn btn-primary place-order"
+                            onClick={this.props.handleClickOrder}
+                        >
+                            Slutför beställning
+                        </button>
+                    </>
                 ) : (
                     <p>Din kundvagn är tom.</p>
                 )}
