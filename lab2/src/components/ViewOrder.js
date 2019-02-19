@@ -33,6 +33,8 @@ class ViewOrder extends Component {
                         <button
                             className="btn btn-primary place-order"
                             onClick={this.props.handleClickOrder}
+                            data-toggle="modal"
+                            data-target="#orderModal"
                         >
                             Slutför beställning
                         </button>

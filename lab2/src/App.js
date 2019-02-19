@@ -8,6 +8,7 @@ import shortid from "shortid";
 // import ComposeSaladModal from "./components/ComposeSaladModal";
 import ComposeSalad from "./components/ComposeSalad";
 import ViewOrder from "./components/ViewOrder";
+import OrderModal from "./components/OrderModal";
 
 const NotFound = () => <h1>Page Not Found</h1>;
 
@@ -147,6 +148,8 @@ class App extends Component {
                         <Route component={NotFound} />
                     </Switch>
                 </div>
+
+                <OrderModal />
             </>
         );
     }
