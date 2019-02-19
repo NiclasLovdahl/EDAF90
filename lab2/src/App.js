@@ -26,7 +26,11 @@ class App extends Component {
     );
 
     viewOrderElem = params => (
-        <ViewOrder {...params} order={this.state.salads} />
+        <ViewOrder
+            {...params}
+            order={this.state.salads}
+            handleClick={this.clearOrders}
+        />
     );
 
     addSalad = obj => {
@@ -48,6 +52,11 @@ class App extends Component {
                 return pre + this.state.inventory[curr].price;
             }, 0);
         return price;
+    };
+
+    clearOrders = () => {
+        this.setState({ salads: [] });
+        localStorage.setItem("salads", JSON.stringify([]));
     };
 
     componentDidMount() {
