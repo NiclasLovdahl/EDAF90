@@ -5,21 +5,34 @@ import "./ViewOrder.css";
 class ViewOrder extends Component {
     render() {
         return (
-            <ul className="list-group">
-                {this.props.order.map((salad, index) => (
-                    <li key={salad.id} className="list-group-item">
-                        {index +
-                            1 +
-                            ": " +
-                            salad.foundation +
-                            "," +
-                            salad.proteins +
-                            salad.extras +
-                            salad.dressing}
-                        <span className="price">{salad.price + " :-"}</span>
-                    </li>
-                ))}
-            </ul>
+            <>
+                <ul className="list-group order-list">
+                    {this.props.order.map((salad, index) => (
+                        <li key={salad.id} className="list-group-item">
+                            {index +
+                                1 +
+                                ": " +
+                                salad.foundation +
+                                "," +
+                                salad.proteins +
+                                salad.extras +
+                                salad.dressing}
+                            <span className="price">{salad.price + " :-"}</span>
+                        </li>
+                    ))}
+                </ul>
+                {this.props.order.length > 0 ? (
+                    <button
+                        type="button"
+                        className="btn btn-primary clear"
+                        onClick={this.props.handleClick}
+                    >
+                        Rensa
+                    </button>
+                ) : (
+                    <p>Din kundvagn är tom.</p>
+                )}
+            </>
         );
     }
 }
