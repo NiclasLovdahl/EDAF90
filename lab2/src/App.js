@@ -103,10 +103,7 @@ class App extends Component {
                                 })
                                     .then(res => res.json())
                                     .then(res => {
-                                        inventory = {
-                                            ...inventory,
-                                            [key]: res
-                                        };
+                                        inventory[key] = res;
                                     });
                             })
                         ).then(() => {
